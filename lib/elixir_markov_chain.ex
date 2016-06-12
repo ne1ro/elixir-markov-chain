@@ -1,0 +1,2 @@
+defmodule ElixirMarkovChain do
+end
