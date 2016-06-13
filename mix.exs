@@ -7,7 +7,7 @@ defmodule ElixirMarkovChain.Mixfile do
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     escript: [main_module: ElixirMarkovChain.Scraper, name: "scrape", path: "#{System.cwd}/bin/scrape"],
+     escript: [main_module: ElixirMarkovChain, path: "#{System.cwd}/bin/start"],
      deps: deps]
   end
 
@@ -29,7 +29,6 @@ defmodule ElixirMarkovChain.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-     [{:mongo, "~> 0.5.4"},
-     {:credo, "~> 0.4", only: [:dev, :test]}]
+     [{:credo, "~> 0.4", only: [:dev, :test]}]
   end
 end
