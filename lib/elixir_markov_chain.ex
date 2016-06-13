@@ -11,9 +11,10 @@ defmodule ElixirMarkovChain do
   end
 
   defp process_source(text) do
-    res = text
+    tokens = text
+      |> String.downcase
       |> String.split(~r{\n}, trim: true)
-      |> Enum.map(&String.downcase/1)
+      |> Enum.map(&String.split/1)
     IEx.pry
   end
 end

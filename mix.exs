@@ -15,7 +15,7 @@ defmodule ElixirMarkovChain.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger, :mongo],
+    [applications: [:logger],
      mod: {ElixirMarkovChain, []}]
   end
 
