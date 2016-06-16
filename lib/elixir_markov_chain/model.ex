@@ -3,15 +3,8 @@ defmodule ElixirMarkovChain.Model do
 
   def populate(pid, text) do
     text
-      |> tokenize
+      |> ElixirMarkovChain.Tokenizer.tokenize
       |> Enum.each(fn(tokens) -> modelize pid, tokens end)
-  end
-
-  defp tokenize(text) do
-    text
-      |> String.downcase
-      |> String.split(~r{\n}, trim: true)
-      |> Enum.map(&String.split/1)
   end
 
   defp modelize(pid, tokens) do
