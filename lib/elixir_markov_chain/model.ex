@@ -1,10 +1,10 @@
-require IEx
-
 defmodule ElixirMarkovChain.Model do
-  def populate(text) do
+  def start_link, do: Agent.start_link(fn -> %{} end)
+
+  def populate(pid, text) do
     text
       |> tokenize
-      |> Enum.map(&modelize/1)
+      |> Enum.each(fn(tokens) -> modelize pid, tokens end)
   end
 
   defp tokenize(text) do
@@ -14,20 +14,26 @@ defmodule ElixirMarkovChain.Model do
       |> Enum.map(&String.split/1)
   end
 
-  defp modelize(tokens) do
+  defp modelize(pid, tokens) do
     tokens
       |> Enum.with_index
-      |> Enum.map(fn({token, id}) ->
-        current_state = state tokens, id
-        IO.inspect current_state
+      |> Enum.each(fn({token, id}) ->
+        fetch_state(tokens, id) |> add_state(pid, token)
       end)
   end
 
-  defp state(_tokens, id) when id == 0, do: { nil, nil }
-  defp state([head | _tail], id) when id == 1, do: { nil, head }
-  defp state(tokens, id) do
+  defp fetch_state(_tokens, id) when id == 0, do: { nil, nil }
+  defp fetch_state([head | _tail], id) when id == 1, do: { nil, head }
+  defp fetch_state(tokens, id) do
     tokens
       |> Enum.slice(id - 2..id - 1)
       |> List.to_tuple
+  end
+
+  defp add_state(state, pid, token) do
+    Agent.update pid, fn(model) ->
+      current_state = model[state] || []
+      Map.put model, state, [token | current_state]
+    end
   end
 end

@@ -3,10 +3,12 @@ defmodule ElixirMarkovChain do
 
   def start(_type, _args) do
     case File.read("#{System.cwd}#{@source_file}") do
-       {:ok, body} -> ElixirMarkovChain.Model.populate body
+       {:ok, body} ->
+         {:ok, model} = ElixirMarkovChain.Model.start_link
+         ElixirMarkovChain.Model.populate model, body
        {:error, reason} -> IO.inspect reason
     end
 
-    Supervisor.start_link [], strategy: :one_for_one
+    System.halt 0
   end
 end
