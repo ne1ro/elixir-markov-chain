@@ -1,20 +1,16 @@
 defmodule ElixirMarkovChain.Model do
-  alias ElixirMarkovChain.Tokenizer
+  import ElixirMarkovChain.Tokenizer
 
   def start_link, do: Agent.start_link(fn -> %{} end)
 
   def populate(pid, text) do
-    text
-      |> Tokenizer.tokenize
-      |> Enum.each(fn(tokens) -> modelize pid, tokens end)
+    for tokens <- tokenize(text), do: modelize(pid, tokens)
   end
 
   defp modelize(pid, tokens) do
-    tokens
-      |> Enum.with_index
-      |> Enum.each(fn({token, id}) ->
-        fetch_state(tokens, id) |> add_state(pid, token)
-      end)
+    for {token, id} <- Enum.with_index(tokens) do
+      fetch_state(tokens, id) |> add_state(pid, token)
+    end
   end
 
   defp fetch_state(_tokens, id) when id == 0, do: { nil, nil }
