@@ -10,7 +10,7 @@ use Mix.Config
 
 # You can configure for your application as:
 #
-#     config :elixir_markov_chain, key: :value
+config :elixir_markov_chain, source_file: "./data/source.txt"
 #
 # And access this configuration in your application as:
 #
