@@ -1,9 +1,11 @@
 defmodule ElixirMarkovChain.Model do
+  alias ElixirMarkovChain.Tokenizer
+
   def start_link, do: Agent.start_link(fn -> %{} end)
 
   def populate(pid, text) do
     text
-      |> ElixirMarkovChain.Tokenizer.tokenize
+      |> Tokenizer.tokenize
       |> Enum.each(fn(tokens) -> modelize pid, tokens end)
   end
 
