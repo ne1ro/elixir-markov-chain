@@ -1,4 +1,8 @@
 defmodule ElixirMarkovChain.Model do
+  @moduledoc """
+    Markov chain model implementation
+  """
+
   import ElixirMarkovChain.Tokenizer
 
   def start_link, do: Agent.start_link(fn -> %{} end)
@@ -11,18 +15,18 @@ defmodule ElixirMarkovChain.Model do
   def fetch_token(state, pid) do
     tokens = fetch_tokens state, pid
 
-    cond do
-      length(tokens) > 0 ->
-        token = Enum.random tokens
-        count = tokens |> Enum.count(&(token == &1))
-        { token, count / length(tokens) }
-      true -> { "", 0.0 }
+    if length(tokens) > 0 do
+      token = Enum.random tokens
+      count = tokens |> Enum.count(&(token == &1))
+      {token, count / length(tokens)}
+    else
+      {"", 0.0}
     end
   end
 
   def fetch_state(tokens), do: fetch_state(tokens, length(tokens))
-  defp fetch_state(_tokens, id) when id == 0, do: { nil, nil }
-  defp fetch_state([head | _tail], id) when id == 1, do: { nil, head }
+  defp fetch_state(_tokens, id) when id == 0, do: {nil, nil}
+  defp fetch_state([head | _tail], id) when id == 1, do: {nil, head}
   defp fetch_state(tokens, id) do
     tokens
       |> Enum.slice(id - 2..id - 1)
@@ -33,7 +37,7 @@ defmodule ElixirMarkovChain.Model do
 
   defp modelize(pid, tokens) do
     for {token, id} <- Enum.with_index(tokens) do
-      fetch_state(tokens, id) |> add_state(pid, token)
+      tokens |> fetch_state(id) |> add_state(pid, token)
     end
   end
 

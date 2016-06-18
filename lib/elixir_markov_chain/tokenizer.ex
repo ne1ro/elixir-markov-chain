@@ -1,4 +1,8 @@
 defmodule ElixirMarkovChain.Tokenizer do
+  @moduledoc """
+    Splits and trims text to sentences and tokens
+  """
+
   def tokenize(text) do
     text
       |> String.downcase
