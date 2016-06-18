@@ -1,20 +1,17 @@
-# ElixirMarkovChain
+# Elixir Markov Chain
 
-**TODO: Add description**
+Simple implementation of Markov chain in Elixir. Generates random sentences from source file.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+* Git clone
+* Install Elixir
+* Mix deps.get
+* Create source for learning in data/source.txt
+* Run with mix run
 
-  1. Add elixir_markov_chain to your list of dependencies in `mix.exs`:
-
-        def deps do
-          [{:elixir_markov_chain, "~> 0.0.1"}]
-        end
-
-  2. Ensure elixir_markov_chain is started before your application:
-
-        def application do
-          [applications: [:elixir_markov_chain]]
-        end
-
+## Examples
+  * Processed from *War and Peace* :
+    ![example](/screenshots/example.png?raw=true "War and Peace")
+  * Processed from *rap lyrics* :
+    ![example](/screenshots/example2.png?raw=true "Rap lyrics")
