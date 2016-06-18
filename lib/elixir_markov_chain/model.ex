@@ -5,6 +5,7 @@ defmodule ElixirMarkovChain.Model do
 
   def populate(pid, text) do
     for tokens <- tokenize(text), do: modelize(pid, tokens)
+    pid
   end
 
   def fetch_token(state, pid) do
