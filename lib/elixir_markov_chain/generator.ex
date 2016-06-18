@@ -6,17 +6,18 @@ defmodule ElixirMarkovChain.Generator do
 
     cond do
       prob >= Application.get_env(:elixir_markov_chain, :treshold) ->
-        sentence |> Enum.join(" ")
+        sentence |> Enum.join(" ") |> String.capitalize
       true -> create_sentence pid
     end
   end
 
   defp complete?(tokens) do
-    length(tokens) >= :random.uniform(15) + 5
+    length(tokens) > 15 ||
+    (length(tokens) > 3 && Regex.match?(~r/[\!\?\.]\z/, List.last tokens))
   end
 
   defp build_sentence(pid), do: build_sentence(pid, [], 0.0, 0.0)
-  defp build_sentence(pid, tokens, prob_acc, new_tokens \\ 0.0) do
+  defp build_sentence(pid, tokens, prob_acc, new_tokens) do
     { token, prob } = Model.fetch_state(tokens) |> Model.fetch_token(pid)
 
     case complete?(tokens) do
