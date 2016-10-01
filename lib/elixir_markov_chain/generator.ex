@@ -6,7 +6,7 @@ defmodule ElixirMarkovChain.Generator do
   alias ElixirMarkovChain.Model
 
   def create_sentence(pid) do
-    {sentence, prob} = build_sentence pid
+    {sentence, prob} = build_sentence(pid)
 
     if prob >= Application.get_env(:elixir_markov_chain, :treshold) do
       sentence |> Enum.join(" ") |> String.capitalize
@@ -32,7 +32,7 @@ defmodule ElixirMarkovChain.Generator do
         end
         {tokens, score}
       _ ->
-        build_sentence pid, tokens ++ [token], prob + prob_acc, new_tokens + 1
+        build_sentence(pid, tokens ++ [token], prob + prob_acc, new_tokens + 1)
     end
   end
 end

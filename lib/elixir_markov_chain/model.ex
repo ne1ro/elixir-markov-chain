@@ -7,17 +7,18 @@ defmodule ElixirMarkovChain.Model do
 
   def start_link, do: Agent.start_link(fn -> %{} end)
 
-  def populate(pid, text) do
+  def populate(text, pid) do
     for tokens <- tokenize(text), do: modelize(pid, tokens)
     pid
   end
 
   def fetch_token(state, pid) do
-    tokens = fetch_tokens state, pid
+    tokens = fetch_tokens(state, pid)
 
     if length(tokens) > 0 do
-      token = Enum.random tokens
+      token = Enum.random(tokens)
       count = tokens |> Enum.count(&(token == &1))
+
       {token, count / length(tokens)}
     else
       {"", 0.0}
@@ -44,7 +45,7 @@ defmodule ElixirMarkovChain.Model do
   defp add_state(state, pid, token) do
     Agent.update pid, fn(model) ->
       current_state = model[state] || []
-      Map.put model, state, [token | current_state]
+      Map.put(model, state, [token | current_state])
     end
   end
 end

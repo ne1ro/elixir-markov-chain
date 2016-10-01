@@ -3,7 +3,7 @@
   "certifi": {:hex, :certifi, "0.4.0", "a7966efb868b179023618d29a407548f70c52466bf1849b9e8ebd0e34b7ea11f", [:rebar3], []},
   "codepagex": {:hex, :codepagex, "0.1.2"},
   "combine": {:hex, :combine, "0.8.0"},
-  "credo": {:hex, :credo, "0.4.3", "29fe87aa2ef3c19bf8dd909594b9b79d9e2ed2857a153c00eb3f697f41cb6782", [:mix], [{:bunt, "~> 0.1.6", [hex: :bunt, optional: false]}]},
+  "credo": {:hex, :credo, "0.4.11", "03a64e9d53309b7132556284dda0be57ba1013885725124cfea7748d740c6170", [:mix], [{:bunt, "~> 0.1.6", [hex: :bunt, optional: false]}]},
   "exgenius": {:hex, :exgenius, "0.0.5", "bf486cffa31c4add0b600193939438b9a4936540435880ba08066e0dafcf2226", [:mix], [{:httpoison, "~> 0.5", [hex: :httpoison, optional: false]}, {:exjsx, "~> 3.1", [hex: :exjsx, optional: false]}]},
   "exjsx": {:hex, :exjsx, "3.2.0", "7136cc739ace295fc74c378f33699e5145bead4fdc1b4799822d0287489136fb", [:mix], [{:jsx, "~> 2.6.2", [hex: :jsx, optional: false]}]},
   "floki": {:hex, :floki, "0.8.1"},
